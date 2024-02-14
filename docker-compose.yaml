@@ -18,9 +18,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "75MB"
-
+          cpus: "0.5"
+          memory: "100MB"
   api02:
     <<: *api
     hostname: api02
@@ -37,8 +36,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "200MB"
+          cpus: "0.2"
+          memory: "100MB"
 
   db:
     image: postgres:12-alpine
@@ -54,8 +53,8 @@ services:
       resources:
         limits:
           cpus: "0.3"
-          memory: "200MB"
+          memory: "250MB"
 networks:
   default:
     driver: bridge
-    name: rinha-nginx-2024q1
+    name: rinha-2024q1
