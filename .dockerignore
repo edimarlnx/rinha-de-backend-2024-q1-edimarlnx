@@ -1,0 +1,6 @@
+.git
+docker-compose.yaml
+docker/
+dist/
+build-and-push-image.sh
+.dockerignore
