@@ -10,8 +10,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	_ "github.com/lib/pq"
 )
 
 func TestPingRoute(t *testing.T) {
@@ -57,7 +55,7 @@ func TestPingRoute(t *testing.T) {
 			name:   "transacao-1-debito",
 			method: "POST",
 			path:   "/clientes/1/transacoes",
-			body:   types.Transacao{Tipo: "d", Valor: 50000},
+			body:   types.Transacao{Tipo: "d", Valor: 50000, Descricao: "debito"},
 			assert: func(w *httptest.ResponseRecorder, t *testing.T) {
 				var saldo types.Saldo
 				json.Unmarshal(w.Body.Bytes(), &saldo)
@@ -70,7 +68,7 @@ func TestPingRoute(t *testing.T) {
 			name:   "transacao-2-debito",
 			method: "POST",
 			path:   "/clientes/1/transacoes",
-			body:   types.Transacao{Tipo: "d", Valor: 50000},
+			body:   types.Transacao{Tipo: "d", Valor: 50000, Descricao: "debito"},
 			assert: func(w *httptest.ResponseRecorder, t *testing.T) {
 				var saldo types.Saldo
 				json.Unmarshal(w.Body.Bytes(), &saldo)
@@ -83,7 +81,7 @@ func TestPingRoute(t *testing.T) {
 			name:   "transacao-3-falha-sem-limite",
 			method: "POST",
 			path:   "/clientes/1/transacoes",
-			body:   types.Transacao{Tipo: "d", Valor: 50000},
+			body:   types.Transacao{Tipo: "d", Valor: 50000, Descricao: "debito"},
 			assert: func(w *httptest.ResponseRecorder, t *testing.T) {
 				assert.Equal(t, 422, w.Code)
 			},
@@ -92,7 +90,7 @@ func TestPingRoute(t *testing.T) {
 			name:   "transacao-4-credito",
 			method: "POST",
 			path:   "/clientes/1/transacoes",
-			body:   types.Transacao{Tipo: "c", Valor: 2000},
+			body:   types.Transacao{Tipo: "c", Valor: 2000, Descricao: "credito"},
 			assert: func(w *httptest.ResponseRecorder, t *testing.T) {
 				var saldo types.Saldo
 				json.Unmarshal(w.Body.Bytes(), &saldo)
@@ -105,7 +103,7 @@ func TestPingRoute(t *testing.T) {
 			name:   "transacao-5-falha-float",
 			method: "POST",
 			path:   "/clientes/1/transacoes",
-			body:   types.Transacao{Tipo: "d", Valor: 2.2},
+			body:   types.Transacao{Tipo: "d", Valor: 2.2, Descricao: "debito"},
 			assert: func(w *httptest.ResponseRecorder, t *testing.T) {
 				assert.Equal(t, 422, w.Code)
 			},
