@@ -6,7 +6,7 @@ import (
 )
 
 func CreateWebhook(transactionController *app.TransactionController) (*gin.Engine, *gin.RouterGroup) {
-	engine := gin.Default()
+	engine := gin.New()
 	routerGroup := engine.Group("/")
 	wsHealth(routerGroup)
 	wsTransacoes(routerGroup, transactionController)

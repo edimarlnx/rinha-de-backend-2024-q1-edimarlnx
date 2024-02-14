@@ -9,6 +9,7 @@ services:
     hostname: api01
     environment:
       - DB_URI=postgres://postgres:postgres@db:5432/rinha-backend?sslmode=disable
+      - GIN_MODE=release
     ports:
       - "8080"
     depends_on:
